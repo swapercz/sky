@@ -1,0 +1,46 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+  tracing:
+    sampling:
+      probability: 1
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
+spring:
+  application:
+    name: 'Users'
+  datasource:
+    url: jdbc:postgresql://localhost:5432/userDB
+    username: dbUser
+    password: dbPwd
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 10
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 20000
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: true
+    open-in-view: false
+
+
+
+
